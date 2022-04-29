@@ -61,3 +61,9 @@ npm install
 ```sh
 npm start
 ```
+
+5. view the app:
+
+    Open [localhost:8000](http://localhost:8000) in a browser. 
+    
+    To simulate multiple users, you can clone multiple tabs or you can use something like [Cloudflare tunnel](https://developers.cloudflare.com/pages/how-to/preview-with-cloudflare-tunnel/) to join from different devices. 
