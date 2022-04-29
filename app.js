@@ -11,18 +11,31 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public")); //use static files in ROOT/public folder
 
+// REPLACE THE BELOW KEYS WITH YOUR OWN
+const ORGANIZATION_ID = "";
+const API_KEY = "";
 
-const ORGANIZATION_ID = "6080207c-1a4e-4fd4-b83b-c82d837e58d8";
-const API_KEY = "BnC6nbld.NdzTl1oTa8cUP8HkLtu9DrJZoEjve15w";
+// DEFAULT ROOM NAME
 const ROOM_TITLE = "abcd";
 
 
 var bodyParser = require("body-parser");
 const { http } = require("http");
 app.use(bodyParser.json());
+
+
+
+function stripString(str){
+    try{
+        return str.trim();
+    }catch(e){
+        return str;
+    }
+}
 
 
 // get the roomname, create it if it doesn't exist
@@ -32,7 +45,7 @@ app.post("/getRoomName", function(req, res) {
 
     //set header
     var headers = {
-        'Authorization': 'Api-Key '+API_KEY,
+        'Authorization': 'Api-Key '+stripString(API_KEY),
     };
 
     //set request parameter
@@ -53,7 +66,7 @@ app.post("/getRoomName", function(req, res) {
 
 
             request.post({headers: headers, url: "https://developers.vidphone.me/meetings/create", form: {
-                "organization_id": ORGANIZATION_ID,
+                "organization_id": stripString(ORGANIZATION_ID),
                 "title": ROOM_TITLE,
             }, method: 'POST'}, function (e, r, meetingObj) {
                 var obj = JSON.parse(meetingObj);
@@ -81,11 +94,11 @@ app.post("/createParticipant", function(req, res) {
 
     //set header
     var headers = {
-        'Authorization': 'Api-Key '+API_KEY,
+        'Authorization': 'Api-Key '+stripString(API_KEY),
     };
 
     var data = {
-        "organization_id": ORGANIZATION_ID,
+        "organization_id": stripString(ORGANIZATION_ID),
         roomname: roomname,
         name: name, 
         user_id: user_id,
@@ -121,11 +134,11 @@ app.post("/createWebinar", function(req, res) {
 
     //set header
     var headers = {
-        'Authorization': 'Api-Key '+API_KEY,
+        'Authorization': 'Api-Key '+stripString(API_KEY),
     };
 
     var data = {
-        "organization_id": ORGANIZATION_ID,
+        "organization_id": stripString(ORGANIZATION_ID),
         title: title, 
         description: description,
         image_url: image_url,
@@ -161,11 +174,11 @@ app.post("/createPresenter", function(req, res) {
 
     //set header
     var headers = {
-        'Authorization': 'Api-Key '+API_KEY,
+        'Authorization': 'Api-Key '+stripString(API_KEY),
     };
 
     var data = {
-        "organization_id": ORGANIZATION_ID,
+        "organization_id": stripString(ORGANIZATION_ID),
         name: name, 
         profile_img_url: profile_img_url,
         room: room,
@@ -191,11 +204,11 @@ app.post("/createSubscriber", function(req, res) {
 
     //set header
     var headers = {
-        'Authorization': 'Api-Key '+API_KEY,
+        'Authorization': 'Api-Key '+stripString(API_KEY),
     };
 
     var data = {
-        "organization_id": ORGANIZATION_ID,
+        "organization_id": stripString(ORGANIZATION_ID),
         name: name, 
         room: room,
         user_id: user_id,
